@@ -1,13 +1,17 @@
 [package]
-name = "add_nodes"
-authors = ["Gabriele Costanza <gabriel.cstnz@gmail.com>"]
+name = "parse_with_macro"
 version = "0.0.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-[dependencies]
-quote = "1.0"
-syn = { version = "2.0.38" }
+
+[lib]
+proc-macro = true
+path = "src/lib.rs"
+
+[[bin]]
+name = "parse_with_macro"
+bin = "src/main.rs"
 
 [dependencies.rustree]
 default-features = false
