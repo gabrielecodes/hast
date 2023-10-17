@@ -22,7 +22,7 @@ pub struct SyntaxTree {
 
 impl SyntaxTree {
     /// Returns an empty SyntaxTree
-    pub fn new() -> Self {
+    pub(crate) fn new() -> Self {
         let root = Construct::Root;
         let node = Node::new(root, 0);
         Self {
@@ -70,8 +70,19 @@ impl SyntaxTree {
 
     /// Returns the node with the given name (identifier) or `None`
     /// if the node is not in the tree
-    pub fn find_node(&self, ident: &syn::Ident) -> Option<&Node> {
+    pub fn find_node(&self, ident: &Ident) -> Option<&Node> {
         self.nodes.iter().find(|node| {
+            let Some(ref name) = node.ident else {
+                return false;
+            };
+            name.eq(ident)
+        })
+    }
+
+    /// Returns the node with the given name (identifier) or `None`
+    /// if the node is not in the tree
+    pub fn find_node_mut(&mut self, ident: &Ident) -> Option<&mut Node> {
+        self.nodes.iter_mut().find(|node| {
             let Some(ref name) = node.ident else {
                 return false;
             };

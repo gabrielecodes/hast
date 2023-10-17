@@ -154,7 +154,7 @@ impl Debug for Construct {
             Construct::ItemImpl(item_impl) => {
                 if let Some(t) = item_impl.trait_.to_owned() {
                     let pat = match_path(&t.1);
-                    format!("Impl: {} for {}", pat, match_type(&item_impl.self_ty))
+                    format!("Impl: {:?} for {}", pat, match_type(&item_impl.self_ty))
                 } else {
                     format!("Impl: {}", match_type(&item_impl.self_ty))
                 }
@@ -168,7 +168,7 @@ impl Debug for Construct {
             Construct::ImplItemFn(impl_item_fn) => {
                 format!("ImplItemFn: {}", impl_item_fn.sig.ident)
             }
-            Construct::ExprPath(pat) => format!("ExprPath: {}", match_path(&pat.path)),
+            Construct::ExprPath(pat) => format!("ExprPath: {:?}", match_path(&pat.path)),
             Construct::Local(local) => format!("Let {}", match_pat(&local.pat)),
             Construct::Stmt(stmt) => match stmt {
                 syn::Stmt::Local(local) => {
@@ -179,9 +179,9 @@ impl Debug for Construct {
                 syn::Stmt::Macro(mac) => format!("Stmt: Macro: {:?}", match_path(&mac.mac.path)),
             },
             Construct::StmtMacro(mac) => format!("Stmt: Macro: {:?}", match_path(&mac.mac.path)),
-            Construct::Macro(mac) => format!("Macro: {}", match_path(&mac.path)),
+            Construct::Macro(mac) => format!("Macro: {:?}", match_path(&mac.path)),
             Construct::ExprMacro(expr_mac) => {
-                format!("ExprMacro: {}", match_path(&expr_mac.mac.path))
+                format!("ExprMacro: {:?}", match_path(&expr_mac.mac.path))
             }
             Construct::ExprReturn(ret) => {
                 if let Some(expr) = &ret.expr {

@@ -1,9 +1,9 @@
-use syn::{Expr, Item, ItemImpl, Lit, Pat, Path, Type};
+use syn::{Expr, Ident, Item, ItemImpl, Lit, Pat, Path, Type};
 
 pub(crate) fn match_expr(expr: &Expr) -> String {
     match expr {
         syn::Expr::Call(call) => match call.func.as_ref() {
-            syn::Expr::Path(p) => format!("Path: {}", match_path(&p.path)),
+            syn::Expr::Path(p) => format!("Path: {:?}", match_path(&p.path)),
             syn::Expr::Let(let_expr) => match_pat(&let_expr.pat),
             syn::Expr::Lit(lit_expr) => match_lit_expr(&lit_expr.lit),
             &_ => "Call: ".to_string(), // TODO
@@ -34,7 +34,7 @@ pub(crate) fn match_pat(pat: &Pat) -> String {
                 .map(|p| p.ident.to_string())
                 .collect::<Vec<String>>()
                 .join(" ");
-            format!("Path: {segs}")
+            segs
         }
         syn::Pat::Ident(id) => id.ident.to_string(),
         &_ => "syn::Pat".to_string(), // TODO
@@ -57,19 +57,16 @@ pub(crate) fn match_type(typ: &Type) -> String {
     }
 }
 
-pub(crate) fn match_path(pat: &Path) -> String {
-    let p = pat
-        .segments
+pub(crate) fn match_path(pat: &Path) -> Vec<Ident> {
+    pat.segments
         .iter()
-        .map(|p| p.ident.to_string())
-        .collect::<Vec<String>>()
-        .join("::");
-    format!("{p}")
+        .map(|p| p.ident.to_owned())
+        .collect::<Vec<Ident>>()
 }
 
 pub(crate) fn match_item_impl(it: ItemImpl) -> String {
     if let Some(item) = it.trait_ {
-        match_path(&item.1)
+        format!("{:?}", match_path(&item.1))
     } else {
         return "ItemImpl".to_string();
     }

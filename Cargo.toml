@@ -23,4 +23,4 @@ serde = { version = "1.0.189", features = ["derive"] }
 
 
 [workspace]
-members = ["examples/parse_simple", "examples/add_nodes", "tests/*"]
+members = ["examples/parse_simple", "examples/parse_with_macro", "tests/*"]
