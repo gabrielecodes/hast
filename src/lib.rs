@@ -14,14 +14,13 @@
 //!
 //! ## Motivation
 //!
-//! This crate is motivated by the need of having a syntax tree with several properties:
-//! 1. it should allow parsing an arbitrary sequence of rust constructs into a data strucutre made of
-//! [`Node`]s that are related through parent-child relationships. We can ask for the parent or
-//! the children of a given node and modify them, or insert nodes in the tree.
-//! 2. The parsing should be performed without making reference to the types that are being
-//! parsed, that is, the parsing should be as automatic as possible. There should be no need parse
-//! the input code "into" as pecific struct, a [`TokenStream`] should be sufficient.
-//! 3. The tree should be easily extendable, printable, modifiable and serializable.
+//! This crate is motivated by the need of having a parser with several properties:
+//! 1. Tree output. The parser should make available be a tree structure with parent-child
+//! relationships between the nodes,
+//! 1. No need for special handling of input code. The parser should ingest an arbitrary sequence
+//! of constructs and parse it automatically.
+//! 3. Easy traversal and extension. The tree should be easily extendable, printable, traversable
+//! and serializable.
 //!
 //! The [`syn`] crate offers many types (see e.g. [`syn::Item`] or [`syn::Expr`]) to parse code
 //! into, but parsing within the `Parse` trait can be laborious. Moreover it is convenient to
