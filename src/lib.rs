@@ -24,7 +24,8 @@
 //!
 //! The [`syn`] crate offers many types (see e.g. [`syn::Item`] or [`syn::Expr`]) to parse code
 //! into, but parsing within the `Parse` trait can be laborious. Moreover it is convenient to
-//! have a tree structure with methods to extend the tree.
+//! have a tree structure with a dependency structure and methods to traverse the tree and pick
+//! specific nodes.
 //!
 //! On the other hand, [`TokenStream`]s are based on generic types (e.g. `Group`) that do not
 //! correspond to an entire rust construct (such as a whole `struct` or `fn`) and are thus not

@@ -12,19 +12,15 @@ macro (e.g. a `proc_macro` or a `proc_macro_derive`).
 
 This crate is motivated by the need of having a syntax tree with several properties:
 
-1. it should allow parsing an arbitrary sequence of rust constructs into a data strucutre made of
-[`Node`](https://github.com/gabrielecodes/hast/blob/master/src/node.rs)s that are related through parent-child relationships. We can ask for the parent or
-the children of a given node and modify them, or insert nodes in the tree.
-2. The parsing should be performed without making reference to the types that are being
-parsed, that is, the parsing should be as automatic as possible. There should be no need parse
-the input code "into" as pecific struct, a `TokenStream` should be sufficient.
-3. The tree should be easily extendable, printable, modifiable and serializable.
-The `syn` crate offers many types (see e.g. `syn::Item` or `syn::Expr`) to parse code
-into, but parsing within the `Parse` trait can be laborious. Moreover it is convenient to
-have a tree structure with methods to extend the tree.
-On the other hand, `TokenStream`s are based on generic types (e.g. `Group`) that do not
-correspond to an entire rust construct (such as a whole `struct` or `fn`) and are thus not
-convenient to use when adding complex extensions to the tree.
+This crate is motivated by the need of having a parser with several properties:
+
+1. Tree output. The parser should make available be a tree structure with parent-child
+relationships between the nodes,
+1. No need for special handling of input code. The parser should ingest an arbitrary sequence
+of constructs and parse it automatically.
+3. Easy traversal and extension. The tree should be easily extendable, printable, traversable
+and serializable.
+
 _Note: as of version 0.1.0 the list of parsable constructs is not exaustive_.
 
 ## Examples
