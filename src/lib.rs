@@ -3,11 +3,11 @@
 //! [github]: https://img.shields.io/badge/github-8da0cb?style=for-the-badge&labelColor=555555&logo=github
 //! # Rustree
 //!
-//! This crate provides an easy way to build and extend a lossless syntax tree. The nodes are based
-//! on [`syn`] types and are stored contiguously in memory. Parsing is performed speculatively,
-//! that is, it is not necessary to explicitly program the types that the input code should be parsed
-//! into, the syntax tree is built automatically. Moreover the tree makes parent-child relationships
-//! available to the user to easily navigate and extend the tree.
+//! This crate provides a way to automatically build and extend a syntax tree from arbitrary rust code.
+//! The nodes are based on [`syn`] types and are stored contiguously in memory. Parsing is performed
+//! speculatively, that is, it is not necessary to explicitly program the types that the input code
+//! should be parsed into, the syntax tree is built automatically. Moreover the tree makes parent-child
+//! relationships available to the user to easily navigate and extend the tree.
 //!
 //! The main item of this crate is the [`speculative_parse`] function which should be used in a
 //! macro (e.g. a [`proc_macro`] or a [`proc_macro_derive`]).
@@ -23,9 +23,9 @@
 //! and serializable.
 //!
 //! The [`syn`] crate offers many types (see e.g. [`syn::Item`] or [`syn::Expr`]) to parse code
-//! into, but parsing within the `Parse` trait can be laborious. Moreover it is convenient to
-//! have a tree structure with a dependency structure and methods to traverse the tree and pick
-//! specific nodes.
+//! into, but parsing within the `Parse` trait can be laborious and [`ParseStream`] doesn't have a
+//! public constructor. Moreover it is convenient to have a tree structure with explicit parent-child
+//! deåendencies and methods to traverse the it and modify specific nodes.
 //!
 //! On the other hand, [`TokenStream`]s are based on generic types (e.g. `Group`) that do not
 //! correspond to an entire rust construct (such as a whole `struct` or `fn`) and are thus not

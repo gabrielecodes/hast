@@ -1,12 +1,11 @@
 # Rustree
 
-This crate provides an easy way to build and extend a lossless syntax tree. The nodes are based
-on `syn` types and are stored contiguously in memory. Parsing is performed speculatively,
+This crate provides a way to automatically build and extend a syntax tree from arbitrary rust code.
+The nodes are based on `syn` types and are stored contiguously in memory. Parsing is performed speculatively,
 that is, it is not necessary to explicitly program the types that the input code should be parsed
 into, the syntax tree is built automatically. Moreover the tree makes parent-child relationships
 available to the user to easily navigate and extend the tree.
-The main item of this crate is the [`speculative_parse`](https://github.com/gabrielecodes/hast/blob/master/src/lib.rs) function which should be used in a
-macro (e.g. a `proc_macro` or a `proc_macro_derive`).
+The main item of this crate is the [`speculative_parse`](https://github.com/gabrielecodes/hast/blob/master/src/lib.rs) function which should be used in a macro (e.g. a `proc_macro` or a `proc_macro_derive`).
 
 ## Motivation
 
@@ -16,7 +15,7 @@ This crate is motivated by the need of having a parser with several properties:
 
 1. Tree output. The parser should make available be a tree structure with parent-child
 relationships between the nodes,
-1. No need for special handling of input code. The parser should ingest an arbitrary sequence
+2. No need for special handling of input code. The parser should ingest an arbitrary sequence
 of constructs and parse it automatically.
 3. Easy traversal and extension. The tree should be easily extendable, printable, traversable
 and serializable.
