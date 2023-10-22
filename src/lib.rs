@@ -1,7 +1,7 @@
 //! [![github]](https://github.com/gabrielecodes/hast)&ensp;
 //!
 //! [github]: https://img.shields.io/badge/github-8da0cb?style=for-the-badge&labelColor=555555&logo=github
-//! # Rustree
+//! # hAST
 //!
 //! This crate provides a way to automatically build and extend a syntax tree from arbitrary rust code.
 //! The nodes are based on [`syn`] types and are stored contiguously in memory. Parsing is performed

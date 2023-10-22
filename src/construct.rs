@@ -169,10 +169,13 @@ impl Debug for Construct {
                 format!("ImplItemFn: {}", impl_item_fn.sig.ident)
             }
             Construct::ExprPath(pat) => format!("ExprPath: {:?}", match_path(&pat.path)),
-            Construct::Local(local) => format!("Let {}", match_pat(&local.pat)),
+            Construct::Local(local) => format!(
+                "Let {}",
+                format!("{}", match_pat(&local.pat).first().unwrap())
+            ),
             Construct::Stmt(stmt) => match stmt {
                 syn::Stmt::Local(local) => {
-                    format!("Stmt: Local: {}", match_pat(&local.pat))
+                    format!("Stmt: Local: {}", match_pat(&local.pat).first().unwrap())
                 }
                 syn::Stmt::Item(item) => format!("Stmt: {}", match_item(item)),
                 syn::Stmt::Expr(expr, _) => format!("Stmt: {}", match_expr(expr)),
@@ -185,14 +188,14 @@ impl Debug for Construct {
             }
             Construct::ExprReturn(ret) => {
                 if let Some(expr) = &ret.expr {
-                    match_expr(&expr)
+                    format!("{}", match_expr(&expr))
                 } else {
                     "ExprReturn".to_string()
                 }
             }
-            Construct::ExprAssign(assign) => match_expr(&assign.left),
-            Construct::ExprLet(let_expr) => match_expr(&let_expr.expr),
-            Construct::ExprLit(lit_expr) => match_lit_expr(&lit_expr.lit),
+            Construct::ExprAssign(assign) => format!("{}", match_expr(&assign.left)),
+            Construct::ExprLet(let_expr) => format!("{}", match_expr(&let_expr.expr)),
+            Construct::ExprLit(lit_expr) => format!("{}", match_lit_expr(&lit_expr.lit)),
             Construct::Root => "Root".to_string(),
             Construct::None => "None".to_string(),
         };

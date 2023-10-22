@@ -17,7 +17,7 @@ pub struct Node {
     pub(crate) id: usize,
 
     /// The name of the construct.
-    pub(crate) ident: Option<Ident>, // TODO
+    pub(crate) ident: Ident, // TODO
 
     /// A [`syn`] type (e.g. a [`syn::ItemStruct`])
     pub(crate) data: Construct,
@@ -33,10 +33,10 @@ pub struct Node {
 }
 
 impl Node {
-    pub(crate) fn new(data: Construct, id: usize) -> Node {
+    pub(crate) fn new(data: Construct, id: usize, ident: Ident) -> Node {
         Node {
             id: id,
-            ident: None,
+            ident: ident,
             data: data,
             parent: 0,
             children: vec![],
