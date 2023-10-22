@@ -1,4 +1,4 @@
-# Rustree
+# hAST
 
 This crate provides a way to automatically build and extend a syntax tree from arbitrary rust code.
 The nodes are based on `syn` types and are stored contiguously in memory. Parsing is performed speculatively,
